@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: laravel
+      POSTGRES_DB: laravel
+    volumes:
+      - db_data:/var/lib/postgresql/18/data
+
+  vite:
+    image: cwallenberg/php-image:8.4-node-22
+    platform: linux/amd64
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "5137:5137"
+    environment:
+      - NODE_ENV=development
+      - TRAEFIK_DOMAIN=${TRAEFIK_DOMAIN}
+    command: sh -c "npm run dev"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${WARDEN_ENV_NAME}-vite.rule=Host(`vite.${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.routers.${WARDEN_ENV_NAME}-vite.tls=true"
+      - "traefik.http.routers.${WARDEN_ENV_NAME}-vite.priority=100"
+      - "traefik.http.services.${WARDEN_ENV_NAME}-vite.loadbalancer.server.port=5137"
+
+volumes:
+  db_data:
