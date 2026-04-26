@@ -30,6 +30,7 @@
 
     --color-primary: var(--primary);
     --color-primary-foreground: var(--primary-foreground);
+    --color-primary-border: var(--color-gray-800);
 
     --color-secondary: var(--secondary);
     --color-secondary-foreground: var(--secondary-foreground);

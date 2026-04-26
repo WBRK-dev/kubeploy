@@ -12,7 +12,7 @@ Route::inertia('/', 'Welcome', [
 Route::prefix('{current_team}')
     ->middleware(['auth', 'verified', EnsureTeamMembership::class])
     ->group(function () {
-        Route::inertia('dashboard', 'Dashboard')->name('dashboard');
+        require __DIR__."/auth.php";
     });
 
 Route::middleware(['auth'])->group(function () {
