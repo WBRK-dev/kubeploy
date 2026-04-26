@@ -1,19 +1,19 @@
 <script lang="ts">
-    import ProjectTable from "@/components/projects/projectTable.svelte";
-    import type { Project } from "@/types";
+    import ProjectsTable from "@/components/projects/projectsTable.svelte";
+    import type { Project, Team } from "@/types";
 
     let {
         projects,
         currentTeam,
     }: {
         projects: Project[],
-        currentTeam: any,
+        currentTeam: Team,
     } = $props();
 </script>
 
 <h3 class="font-semibold text-xl mb-3">Projects</h3>
 
-<ProjectTable
+<ProjectsTable
     {projects}
     teamSlug={currentTeam.slug}
 />

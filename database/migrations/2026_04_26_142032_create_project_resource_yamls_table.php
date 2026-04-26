@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project_resources', function (Blueprint $table) {
+        Schema::create('project_resource_yamls', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("project_id");
-            $table->string("name");
-            $table->string("type");
+            $table->unsignedBigInteger("project_resource_id");
+            $table->text("yaml");
             $table->timestamps();
 
-            $table->foreign("project_id")->references("id")->on("projects")->cascadeOnDelete();
+            $table->foreign("project_resource_id")->references("id")->on("project_resources")->cascadeOnDelete();
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project_resources');
+        Schema::dropIfExists('project_resource_yamls');
     }
 };

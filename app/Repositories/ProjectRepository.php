@@ -14,6 +14,6 @@ class ProjectRepository {
     public function getById(int $id, string $teamSlug): ?Project
     {
         return $this->teamRepository->getBySlug($teamSlug)
-            ?->projects()?->findOrFail($id);
+            ?->projects()->with("resources.yamlTrait")?->findOrFail($id);
     }
 }

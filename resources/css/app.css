@@ -45,7 +45,9 @@
     --color-destructive-foreground: var(--destructive-foreground);
 
     --color-border: var(--border);
+    --color-border-input-hover: var(--border-input-hover);
     --color-input: var(--input);
+    --color-input-ring: var(--input-ring);
     --color-ring: var(--ring);
 
     --color-chart-1: var(--chart-1);
@@ -147,7 +149,9 @@
     --destructive: hsl(0 84% 60%);
     --destructive-foreground: hsl(0 0% 98%);
     --border: hsl(0 0% 14.9%);
+    --border-input-hover: #f5f5f566;
     --input: hsl(0 0% 14.9%);
+    --input-ring: #f4f4f51a;
     --ring: hsl(0 0% 83.1%);
     --chart-1: hsl(220 70% 50%);
     --chart-2: hsl(160 60% 45%);
