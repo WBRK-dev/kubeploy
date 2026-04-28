@@ -1,0 +1,3 @@
+[submodule "packages/KubernetesClient"]
+	path = packages/KubernetesClient
+	url = https://github.com/WBRK-dev/kubernetes-client.git
