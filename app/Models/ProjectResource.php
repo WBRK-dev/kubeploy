@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\ProjectResourceType;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ProjectResource extends Model
 {
@@ -15,14 +16,14 @@ class ProjectResource extends Model
     public function loadType(): void
     {
         switch($this->type) {
-            case ("yaml"):
+            case (ProjectResourceType::Yaml->value):
                 $this->load("yamlTrait");
                 break;
         }
     }
 
-    public function yamlTrait(): HasMany
+    public function yamlTrait(): HasOne
     {
-        return $this->hasMany(ProjectResourceYaml::class);
+        return $this->hasOne(ProjectResourceYaml::class);
     }
 }

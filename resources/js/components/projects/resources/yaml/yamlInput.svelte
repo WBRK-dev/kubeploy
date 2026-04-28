@@ -12,5 +12,5 @@
     bind:value={yaml}
     spellcheck={false}
     resize="y"
-    className="h-140"
+    className="h-140 font-mono"
 />
