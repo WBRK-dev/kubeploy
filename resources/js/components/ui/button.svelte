@@ -4,7 +4,7 @@
     import type { Snippet } from "svelte";
     import type { LucideIcon } from "@lucide/svelte";
 
-    type Kind = 'primary' | 'secondary';
+    type Kind = 'primary' | 'secondary' | 'danger';
 
     let {
         label,
@@ -29,6 +29,8 @@
             return 'bg-dark text-background hover:bg-dark/95';
         } else if (kind === 'secondary') {
             return 'bg-muted hover:bg-dark-10';
+        } else if (kind === 'danger') {
+            return 'bg-danger text-danger-foreground hover:bg-dark-10';
         }
     }
 </script>
@@ -53,7 +55,9 @@
 
     {#if spinner}
         <div class="absolute inset-0 flex items-center justify-center">
-            <Spinner/>
+            <Spinner
+                white={kind === 'danger'}
+            />
         </div>
     {/if}
 </Button.Root>

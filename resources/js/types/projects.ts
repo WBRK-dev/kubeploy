@@ -9,7 +9,7 @@ export type Project = {
 export type ProjectResource = {
     id: number;
     name: string;
-    type: string;
+    type: ProjectResourceType;
     yaml_trait?: ProjectResourceYaml;
     created_at: string;
     updated_at: string;
@@ -21,3 +21,8 @@ export type ProjectResourceYaml = {
     created_at: string;
     updated_at: string;
 };
+
+export enum ProjectResourceType {
+    Application = 'application',
+    Yaml = 'yaml',
+}

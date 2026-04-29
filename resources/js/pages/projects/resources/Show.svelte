@@ -1,9 +1,9 @@
 <script lang="ts">
     import { inertia } from "@inertiajs/svelte";
+    import ResourceToolbar from "@/components/projects/resources/resourceToolbar.svelte";
     import YamlResource from "@/components/projects/resources/yamlResource.svelte";
     import { project as projectRoute } from "@/routes";
-    import type { Project, ProjectResource, Team } from "@/types";
-    import ResourceToolbar from "@/components/projects/resources/resourceToolbar.svelte";
+    import { ProjectResourceType, type Project, type ProjectResource, type Team } from "@/types";
 
     let {
         project,
@@ -27,6 +27,9 @@
 </h3>
 
 <ResourceToolbar
+    {project}
+    {resource}
+    {currentTeam}
     className="mb-3"
 />
 

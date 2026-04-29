@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Projects;
 
+use App\Http\Controllers\Controller;
 use App\Repositories\ProjectRepository;
 use Illuminate\Http\Request;
 use Inertia\Response;
