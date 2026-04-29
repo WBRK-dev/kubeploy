@@ -12,6 +12,10 @@
         {
             "type": "path",
             "url": "./packages/KubernetesClient"
+        },
+        {
+            "type": "path",
+            "url": "./packages/KubernetesClientRepositories"
         }
     ],
     "require": {
@@ -21,7 +25,8 @@
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
         "laravel/wayfinder": "^0.1.14",
-        "maclof/kubernetes-client": "dev-master"
+        "maclof/kubernetes-client": "dev-master",
+        "wbrk-dev/kubeploy-kubernetes-client-repositories": "dev-master"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",

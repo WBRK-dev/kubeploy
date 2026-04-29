@@ -1,4 +1,13 @@
 services:
+  php-fpm:
+    volumes:
+      - ~/.minikube/ca.crt:/home/www-data/.minikube/ca.crt
+      - ~/.minikube/profiles/minikube/client.crt:/home/www-data/.minikube/profiles/minikube/client.crt
+      - ~/.minikube/profiles/minikube/client.key:/home/www-data/.minikube/profiles/minikube/client.key
+    networks:
+      - default
+      - minikube
+
   db:
     image: postgres:18
     environment:
@@ -10,7 +19,6 @@ services:
 
   vite:
     image: cwallenberg/php-image:8.4-node-22
-    platform: linux/amd64
     working_dir: /app
     volumes:
       - .:/app
@@ -29,3 +37,7 @@ services:
 
 volumes:
   db_data:
+
+networks:
+  minikube:
+    external: true

@@ -1,0 +1,35 @@
+<?php
+
+return [
+    "kubeconfig" => "apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: \"/home/www-data/.minikube/ca.crt\"
+    extensions:
+    - extension:
+        last-update: \"Tue, 28 Apr 2026 15:06:22 CEST\"
+        provider: minikube.sigs.k8s.io
+        version: v1.37.0
+        name: cluster_info
+    server: \"https://192.168.49.2:8443\"
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    extensions:
+    - extension:
+        last-update: \"Tue, 28 Apr 2026 15:06:22 CEST\"
+        provider: minikube.sigs.k8s.io
+        version: v1.37.0
+        name: context_info
+    namespace: default
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+users:
+- name: minikube
+  user:
+    client-certificate: \"/home/www-data/.minikube/profiles/minikube/client.crt\"
+    client-key: \"/home/www-data/.minikube/profiles/minikube/client.key\""
+];

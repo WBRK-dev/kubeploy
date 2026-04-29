@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use Maclof\Kubernetes\Client;
-use Http\Adapter\Guzzle6\Client as Guzzle6Client;
+use GuzzleHttp\Client as GuzzleClient;
 use WbrkDev\KubernetesClientRepositories\RepositoryRegistry;
 
 class KubernetesClientService
@@ -15,10 +15,10 @@ class KubernetesClientService
         // TODO: Manually store certificates instead of storing kubeconfig
         $config = Client::parseKubeconfig($kubeconfig);
 
-        $httpClient = Guzzle6Client::createWithConfig([
-           	'verify' => $config['ca_cert'],
-           	'cert' => $config['client_cert'],
-           	'ssl_key' => $config['client_key'],
+        $httpClient = new GuzzleClient([
+           	'verify' => $config['ca_cert'] ?? ($config['verify'] ?? null),
+           	'cert' => $config['client_cert'] ?? null,
+           	'ssl_key' => $config['client_key'] ?? null,
         ]);
 
         return new Client([
