@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Projects;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 use App\Models\Team;
 use App\Repositories\ProjectRepository;
 use Illuminate\Http\RedirectResponse;
@@ -40,6 +41,25 @@ class ProjectController extends Controller
         /** @var Team $team */
         $team = $request->user()->currentTeam;
         $this->projectRepository->create($body['name'], $team->id);
+
+        return back();
+    }
+
+    public function delete(string $currentTeam, int $project): RedirectResponse
+    {
+        $this->projectRepository->delete($project);
+
+        return back();
+    }
+
+    public function save(Request $request, string $currentTeam, Project $project): RedirectResponse
+    {
+        $body = $request->validate([
+            'name' => 'required|string|min:1|max:20'
+        ]);
+
+        $project->name = $body['name'];
+        $this->projectRepository->update($project);
 
         return back();
     }

@@ -24,4 +24,19 @@ class ProjectRepository {
             'team_id' => $teamId,
         ]);
     }
+
+    public function delete(Project|int $project): void
+    {
+        if (is_int($project)) {
+            Project::whereId($project)->delete();
+        } else {
+            $project->delete();
+        }
+    }
+
+    public function update(Project $project): Project
+    {
+        $project->save();
+        return $project;
+    }
 }
