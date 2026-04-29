@@ -3,11 +3,13 @@
         value = $bindable(),
         type = "text",
         placeholder,
+        id,
         name,
     }: {
         value?: string,
         type?: string,
         placeholder?: string,
+        id?: string,
         name?: string,
     } = $props();
 </script>
@@ -19,6 +21,7 @@
         select-none items-center border px-2 py-3 text-sm tracking-[0.01em]"
     {type}
     {placeholder}
+    {id}
     {name}
     bind:value
 >

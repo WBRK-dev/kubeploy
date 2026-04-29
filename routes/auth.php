@@ -7,6 +7,7 @@ use App\Services\KubernetesClientService;
 use Illuminate\Support\Facades\Route;
 
 Route::get('projects', [ProjectController::class, "index"])->name('projects');
+Route::post('projects', [ProjectController::class, "store"]);
 Route::get('projects/{project}', [ProjectController::class, "show"])->name('project');
 Route::get('projects/{project}/{resource}', [ProjectResourceController::class, "show"])->name('project.resource');
 Route::put('projects/{project}/{resource}', [ProjectResourceController::class, "save"]);

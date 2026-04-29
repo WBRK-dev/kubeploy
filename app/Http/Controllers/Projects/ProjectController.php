@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Projects;
 
 use App\Http\Controllers\Controller;
+use App\Models\Team;
 use App\Repositories\ProjectRepository;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
 
@@ -27,5 +29,18 @@ class ProjectController extends Controller
         return inertia("projects/Show", [
             "project" => $this->projectRepository->getById($project, $team),
         ]);
+    }
+
+    public function store(Request $request): RedirectResponse
+    {
+        $body = $request->validate([
+            'name' => 'required|string|min:1|max:20'
+        ]);
+
+        /** @var Team $team */
+        $team = $request->user()->currentTeam;
+        $this->projectRepository->create($body['name'], $team->id);
+
+        return back();
     }
 }

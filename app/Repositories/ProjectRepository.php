@@ -16,4 +16,12 @@ class ProjectRepository {
         return $this->teamRepository->getBySlug($teamSlug)
             ?->projects()->with("resources.yamlTrait")?->findOrFail($id);
     }
+
+    public function create(string $name, int $teamId): Project
+    {
+        return Project::create([
+            'name' => $name,
+            'team_id' => $teamId,
+        ]);
+    }
 }
