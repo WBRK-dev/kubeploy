@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("project_id");
             $table->string("name");
+            $table->string("selector");
             $table->string("type");
             $table->timestamps();
 

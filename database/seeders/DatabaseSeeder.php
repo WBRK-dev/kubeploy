@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Team;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Hash;
@@ -21,5 +22,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@localhost',
             'password' => Hash::make('admin'),
         ]);
+
+        $team = Team::find(1);
+        $team->slug = "admins-team";
+        $team->save();
     }
 }

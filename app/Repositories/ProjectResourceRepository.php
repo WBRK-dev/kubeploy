@@ -17,14 +17,6 @@ class ProjectResourceRepository {
             'project_id' => $projectId,
         ]);
 
-        switch ($type) {
-            case (ProjectResourceType::Yaml->value):
-                $projectResource->yamlTrait()->create([
-                    "yaml" => "",
-                ]);
-                break;
-        }
-
         return $projectResource;
     }
 
