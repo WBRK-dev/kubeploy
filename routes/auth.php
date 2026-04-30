@@ -14,6 +14,8 @@ Route::put('projects/{project}', [ProjectController::class, "save"]);
 Route::delete('projects/{project}', [ProjectController::class, "delete"]);
 Route::get('projects/{project}/{resource}', [ProjectResourceController::class, "show"])->name('project.resource');
 Route::put('projects/{project}/{resource}', [ProjectResourceController::class, "save"]);
+Route::delete('projects/{project}/{resource}', [ProjectResourceController::class, "delete"]);
+Route::put('projects/{project}/{resource}/yaml', [ProjectResourceYamlController::class, "save"])->name('project.resource.yaml');
 Route::post('projects/{project}/{resource}/yaml/apply', [ProjectResourceYamlController::class, "apply"])->name('project.resource.yaml.apply');
 Route::post('projects/{project}/{resource}/yaml/delete', [ProjectResourceYamlController::class, "delete"])->name('project.resource.yaml.delete');
 

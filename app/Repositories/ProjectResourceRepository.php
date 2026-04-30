@@ -27,4 +27,20 @@ class ProjectResourceRepository {
 
         return $projectResource;
     }
+
+    public function update(ProjectResource $resource): ProjectResource
+    {
+        $resource->save();
+        return $resource;
+    }
+
+    public function delete(ProjectResource|int $resource): void
+    {
+        if (is_int($resource)) {
+            ProjectResource::whereId($resource)->delete();
+            return;
+        }
+
+        $resource->delete();
+    }
 }

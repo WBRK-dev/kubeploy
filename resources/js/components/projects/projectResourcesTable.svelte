@@ -4,6 +4,8 @@
     import DataTable from '@/components/ui/dataTable.svelte';
     import { resource } from '@/routes/project';
     import type { ProjectResource } from '@/types';
+    import DeleteProjectResourceDialog from './deleteProjectResourceDialog.svelte';
+    import EditProjectResourceDialog from './editProjectResourceDialog.svelte';
 
     let {
         projectResources,
@@ -14,6 +16,10 @@
         projectId: number,
         teamSlug: string,
     } = $props();
+
+    let activeProjectResource: ProjectResource|null = $state(null);
+    let isEditProjectResourceDialogOpen = $state(false);
+    let isDeleteProjectResourceDialogOpen = $state(false);
 </script>
 
 {#snippet name(row: ProjectResource)}
@@ -24,11 +30,27 @@
     >{row.name}</a>
 {/snippet}
 
-{#snippet actions(_: ProjectResource)}
+{#snippet actions(projectResource: ProjectResource)}
     <div class="flex gap-2">
         <ExternalLink size={20} />
-        <Pencil size={20} />
-        <Trash size={20} color="red" />
+        <button
+            class="cursor-pointer"
+            onclick={() => {
+                isEditProjectResourceDialogOpen = true;
+                activeProjectResource = projectResource;
+            }}
+        >
+            <Pencil size={20} />
+        </button>
+        <button
+            class="cursor-pointer"
+            onclick={() => {
+                isDeleteProjectResourceDialogOpen = true;
+                activeProjectResource = projectResource;
+            }}
+        >
+            <Trash size={20} color="red" />
+        </button>
     </div>
 {/snippet}
 
@@ -50,4 +72,20 @@
         }
     ]}
     rows={projectResources}
+/>
+
+<DeleteProjectResourceDialog
+    projectResource={activeProjectResource}
+    {projectId}
+    currentTeamSlug={teamSlug}
+    open={isDeleteProjectResourceDialogOpen}
+    onclose={() => isDeleteProjectResourceDialogOpen = false}
+/>
+
+<EditProjectResourceDialog
+    projectResource={activeProjectResource}
+    {projectId}
+    currentTeamSlug={teamSlug}
+    open={isEditProjectResourceDialogOpen}
+    onclose={() => isEditProjectResourceDialogOpen = false}
 />

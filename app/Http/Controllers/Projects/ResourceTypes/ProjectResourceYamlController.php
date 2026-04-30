@@ -9,6 +9,7 @@ use App\Models\ProjectResource;
 use App\Services\KubernetesClientService;
 use App\Services\KubernetesSmartPatchService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ProjectResourceYamlController extends Controller
 {
@@ -16,6 +17,21 @@ class ProjectResourceYamlController extends Controller
         protected KubernetesClientService $kubernetesClientService,
         protected KubernetesSmartPatchService $kubernetesSmartPatchService,
     ) { }
+
+    public function save(Request $request, string $currentTeam, Project $project, ProjectResource $resource): RedirectResponse
+    {
+        switch ($resource->type) {
+            case (ProjectResourceType::Yaml->value):
+                $body = $request->validate([
+                    "yaml" => "required|string",
+                ]);
+                $resource->yamlTrait->yaml = $body['yaml'];
+                $resource->yamlTrait->save();
+                break;
+        }
+
+        return back();
+    }
 
     public function apply(string $currentTeam, Project $project, ProjectResource $resource): JsonResponse
     {

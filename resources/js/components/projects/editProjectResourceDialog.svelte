@@ -1,8 +1,9 @@
 <script lang="ts">
     import { useForm } from "@inertiajs/svelte";
     import { Label } from "bits-ui";
-    import { project as projectRoute } from '@/routes';
+    import { resource as resourceRoute } from '@/routes/project';
     import { ProjectResourceType } from "@/types";
+    import type { ProjectResource } from "@/types";
     import type { SelectItem } from "@/types/components/ui/select";
     import Button from "../ui/button.svelte";
     import Dialog from "../ui/dialog.svelte";
@@ -10,11 +11,13 @@
     import Select from "../ui/select.svelte";
 
     let {
+        projectResource,
         projectId,
         currentTeamSlug,
         open,
         onclose,
     }: {
+        projectResource: ProjectResource|null,
         projectId: number,
         currentTeamSlug: string,
         open: boolean,
@@ -23,7 +26,12 @@
 
     const form = useForm({
         name: '',
-        type: '',
+    });
+
+    $effect(() => {
+        if (open && projectResource) {
+            form.name = projectResource.name;
+        }
     });
 
     const resourceTypes: SelectItem[] = [
@@ -33,7 +41,7 @@
 </script>
 
 <Dialog
-    title="Create Resource"
+    title="Edit Project Resource"
     {open}
     {onclose}
 >
@@ -52,19 +60,16 @@
     <Label.Root>Type</Label.Root>
     <Select
         items={resourceTypes}
-        bind:value={form.type}
+        value={projectResource?.type}
         placeholder="Select resource type"
+        disabled={true}
     />
 
-    {#if form.errors.type}
-        <p class="text-red-500 text-sm mt-2">{form.errors.type}</p>
-    {/if}
-
-    <div class="flex justify-end mt-6">
+    <div class="flex justify-end">
         <Button
             label="Save"
-            className="px-12.5 h-input"
-            onclick={() => form.post(projectRoute({ current_team: currentTeamSlug, project: projectId }).url, {
+            className="px-12.5 h-input mt-6"
+            onclick={() => form.put(resourceRoute({ current_team: currentTeamSlug, project: projectId, resource: projectResource!.id }).url, {
                 onSuccess: onclose,
             })}
             spinner={form.processing}

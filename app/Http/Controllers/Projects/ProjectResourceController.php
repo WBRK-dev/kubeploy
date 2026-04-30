@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\ProjectResource;
 use App\Repositories\ProjectResourceRepository;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -31,15 +30,12 @@ class ProjectResourceController extends Controller
 
     public function save(Request $request, string $currentTeam, Project $project, ProjectResource $resource): RedirectResponse
     {
-        switch ($resource->type) {
-            case (ProjectResourceType::Yaml->value):
-                $body = $request->validate([
-                    "yaml" => "required|string",
-                ]);
-                $resource->yamlTrait->yaml = $body['yaml'];
-                $resource->yamlTrait->save();
-                break;
-        }
+        $body = $request->validate([
+            'name' => 'required|string|min:1|max:20',
+        ]);
+
+        $resource->name = $body['name'];
+        $this->projectResourceRepository->update($resource);
 
         return back();
     }
@@ -54,6 +50,13 @@ class ProjectResourceController extends Controller
         /** @var Team $team */
         $team = $request->user()->currentTeam;
         $this->projectResourceRepository->create($body['name'], $body['type'], $project->id);
+
+        return back();
+    }
+
+    public function delete(Request $request, string $currentTeam, int $project, int $resource): RedirectResponse
+    {
+        $this->projectResourceRepository->delete($resource);
 
         return back();
     }

@@ -8,6 +8,7 @@
         items,
         placeholder,
         allowDeselect = true,
+        disabled = false,
         onValueChange,
         value = $bindable(),
     }: {
@@ -15,6 +16,7 @@
         items?: SelectItem[],
         placeholder?: string,
         allowDeselect?: boolean,
+        disabled?: boolean,
         onValueChange?: (value: string[]) => void,
         value?: string | string[]
     } = $props();
@@ -24,16 +26,18 @@
     {type}
     items={items as { value: string; label: string; disabled?: boolean | undefined; }[]}
     {allowDeselect}
+    {disabled}
     {onValueChange}
     bind:value
 >
     <Select.Trigger
         class="h-input rounded-input border-border-input bg-background data-placeholder:text-foreground-alt/50
-            inline-flex touch-none select-none items-center border px-2.75 text-sm transition-colors w-full"
+            inline-flex touch-none select-none items-center border px-2.75 text-sm transition-colors w-full
+            disabled:text-foreground-alt"
         aria-label={placeholder}
     >
         <Select.Value {placeholder} />
-        <ChevronDown class="text-muted-foreground ml-auto size-6" />
+        <ChevronDown class="text-muted-foreground ml-auto size-6 disabled:text-foreground-alt" />
     </Select.Trigger>
     <Select.Portal>
         <Select.Content
