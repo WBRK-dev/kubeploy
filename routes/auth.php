@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('projects', [ProjectController::class, "index"])->name('projects');
 Route::post('projects', [ProjectController::class, "store"]);
 Route::get('projects/{project}', [ProjectController::class, "show"])->name('project');
+Route::post('projects/{project}', [ProjectResourceController::class, "store"]);
 Route::put('projects/{project}', [ProjectController::class, "save"]);
 Route::delete('projects/{project}', [ProjectController::class, "delete"]);
 Route::get('projects/{project}/{resource}', [ProjectResourceController::class, "show"])->name('project.resource');

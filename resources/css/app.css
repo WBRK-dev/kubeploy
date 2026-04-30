@@ -19,6 +19,7 @@
     --radius-md: calc(var(--radius) - 2px);
     --radius-sm: calc(var(--radius) - 4px);
     --radius-input: var(--radius-xl);
+    --radius-button: var(--radius-lg);
 
     --radius-card-lg: calc(var(--radius-lg) * 2);
     --radius-card-sm: calc(var(--radius-sm) * 2);

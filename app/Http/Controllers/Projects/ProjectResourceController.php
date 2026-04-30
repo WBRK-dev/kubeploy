@@ -6,13 +6,19 @@ use App\Enums\ProjectResourceType;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\ProjectResource;
+use App\Repositories\ProjectResourceRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Response;
 
 class ProjectResourceController extends Controller
 {
+    public function __construct(
+        protected ProjectResourceRepository $projectResourceRepository,
+    ) { }
+
     public function show(string $currentTeam, Project $project, ProjectResource $resource): Response
     {
         $resource->loadType();
@@ -38,16 +44,17 @@ class ProjectResourceController extends Controller
         return back();
     }
 
-    public function apply(string $currentTeam, Project $project, ProjectResource $resource): JsonResponse
+    public function store(Request $request, string $currentTeam, Project $project): RedirectResponse
     {
-        if ($resource->type !== ProjectResourceType::Yaml->value) {
-            return response()->json(['message' => 'Incorrect resource type'], 400);
-        }
+        $body = $request->validate([
+            'name' => 'required|string|min:1|max:20',
+            'type' => ['required', Rule::enum(ProjectResourceType::class)],
+        ]);
 
-        $client = $this->kubernetesClientService->createClient(config('kubernetes.kubeconfig'));
-        $this->kubernetesSmartPatchService->setClient($client);
-        $this->kubernetesSmartPatchService->patch($resource->yamlTrait->yaml);
+        /** @var Team $team */
+        $team = $request->user()->currentTeam;
+        $this->projectResourceRepository->create($body['name'], $body['type'], $project->id);
 
-        return response()->json(['message' => 'Applied patch']);
+        return back();
     }
 }

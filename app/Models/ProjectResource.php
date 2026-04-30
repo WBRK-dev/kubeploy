@@ -29,6 +29,7 @@ class ProjectResource extends Model
 {
     protected $fillable = [
         "project_id",
+        "name",
         "type",
     ];
 
