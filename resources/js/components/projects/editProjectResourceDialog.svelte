@@ -1,8 +1,8 @@
 <script lang="ts">
     import { useForm } from "@inertiajs/svelte";
     import { Label } from "bits-ui";
+    import ProjectResourceType from "@/lib/enums/projectResourceType";
     import { resource as resourceRoute } from '@/routes/project';
-    import { ProjectResourceType } from "@/types";
     import type { ProjectResource } from "@/types";
     import type { SelectItem } from "@/types/components/ui/select";
     import Button from "../ui/button.svelte";

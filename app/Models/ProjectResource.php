@@ -65,6 +65,11 @@ class ProjectResource extends Model
         }
     }
 
+    public function applicationTrait(): HasOne
+    {
+        return $this->hasOne(ProjectResourceApplication::class);
+    }
+
     public function yamlTrait(): HasOne
     {
         return $this->hasOne(ProjectResourceYaml::class);

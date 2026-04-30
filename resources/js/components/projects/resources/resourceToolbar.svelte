@@ -2,8 +2,8 @@
     import { useHttp } from "@inertiajs/svelte";
     import { CircleStop, FileBraces, RefreshCw, Rocket, Trash } from "@lucide/svelte";
     import Button from "@/components/ui/button.svelte";
+    import ProjectResourceType from "@/lib/enums/projectResourceType";
     import { apply as yamlApplyRoute, deleteMethod as yamlDeleteRoute } from '@/routes/project/resource/yaml';
-    import { ProjectResourceType } from "@/types";
     import type { Project, ProjectResource, Team } from '@/types';
 
     let {

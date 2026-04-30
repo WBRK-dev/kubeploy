@@ -1,3 +1,6 @@
+import type ApplicationType from "@/lib/enums/applicationType";
+import type ProjectResourceType from "@/lib/enums/projectResourceType";
+
 export type Project = {
     id: number;
     name: string;
@@ -15,14 +18,22 @@ export type ProjectResource = {
     updated_at: string;
 };
 
+export type ProjectResourceApplication = {
+    id: number;
+    deployment: ProjectResourceApplicationDeployment;
+    domains: [];
+    ports: [];
+    created_at: string;
+    updated_at: string;
+};
+
+export type ProjectResourceApplicationDeployment = {
+    type: ApplicationType;
+};
+
 export type ProjectResourceYaml = {
     id: number;
     yaml: string;
     created_at: string;
     updated_at: string;
 };
-
-export enum ProjectResourceType {
-    Application = 'application',
-    Yaml = 'yaml',
-}

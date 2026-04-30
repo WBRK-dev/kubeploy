@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("type");
             $table->timestamps();
 
-            $table->foreign("project_id")->references("id")->on("projects")->cascadeOnDelete();
+            $table->foreign("project_id")->references("id")->on("projects")->restrictOnDelete();
         });
     }
 

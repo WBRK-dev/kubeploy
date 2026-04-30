@@ -3,7 +3,7 @@
     import ResourceToolbar from "@/components/projects/resources/resourceToolbar.svelte";
     import YamlResource from "@/components/projects/resources/yamlResource.svelte";
     import { project as projectRoute } from "@/routes";
-    import { ProjectResourceType, type Project, type ProjectResource, type Team } from "@/types";
+    import type { Project, ProjectResource, Team } from "@/types";
 
     let {
         project,
