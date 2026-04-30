@@ -1,9 +1,9 @@
 <script lang="ts">
     import { useForm } from "@inertiajs/svelte";
     import Button from "@/components/ui/button.svelte";
-    import { resource as resourceRoute } from "@/routes/project";
     import type { Project, ProjectResource, Team } from "@/types";
     import YamlInput from "./yaml/yamlInput.svelte";
+    import { yaml as yamlRoute } from "@/routes/project/resource";
 
     let {
         project,
@@ -20,7 +20,7 @@
     });
 
     function save() {
-        form.put(resourceRoute({ current_team: currentTeam.slug, project: project.id, resource: resource.id }).url);
+        form.put(yamlRoute({ current_team: currentTeam.slug, project: project.id, resource: resource.id }).url);
     }
 </script>
 

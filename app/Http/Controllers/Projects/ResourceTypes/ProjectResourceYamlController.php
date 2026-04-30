@@ -9,6 +9,7 @@ use App\Models\ProjectResource;
 use App\Services\KubernetesClientService;
 use App\Services\KubernetesSmartPatchService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ProjectResourceYamlController extends Controller
