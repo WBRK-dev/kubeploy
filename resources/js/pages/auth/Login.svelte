@@ -1,8 +1,8 @@
 <script lang="ts">
+    import { useForm } from '@inertiajs/svelte';
     import { store } from '@/actions/Laravel/Fortify/Http/Controllers/AuthenticatedSessionController';
     import Button from '@/components/ui/button.svelte';
     import Input from '@/components/ui/input.svelte';
-    import { useForm } from '@inertiajs/svelte';
 
     const form = useForm({
         email: '',

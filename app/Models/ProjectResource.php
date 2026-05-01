@@ -59,6 +59,9 @@ class ProjectResource extends Model
     public function loadType(): void
     {
         switch($this->type) {
+            case (ProjectResourceType::Application->value):
+                $this->load("applicationTrait");
+                break;
             case (ProjectResourceType::Yaml->value):
                 $this->load("yamlTrait");
                 break;

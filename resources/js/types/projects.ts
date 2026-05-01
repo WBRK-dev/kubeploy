@@ -1,4 +1,5 @@
 import type ApplicationType from "@/lib/enums/applicationType";
+import type ImagePullPolicy from "@/lib/enums/imagePullPolicy";
 import type ProjectResourceType from "@/lib/enums/projectResourceType";
 
 export type Project = {
@@ -13,6 +14,7 @@ export type ProjectResource = {
     id: number;
     name: string;
     type: ProjectResourceType;
+    application_trait?: ProjectResourceApplication;
     yaml_trait?: ProjectResourceYaml;
     created_at: string;
     updated_at: string;
@@ -27,9 +29,9 @@ export type ProjectResourceApplication = {
     updated_at: string;
 };
 
-export type ProjectResourceApplicationDeployment = {
-    type: ApplicationType;
-};
+export type ProjectResourceApplicationDeployment = (
+    | { type: ApplicationType.Docker, image: string, imagePullPolicy: ImagePullPolicy }
+);
 
 export type ProjectResourceYaml = {
     id: number;

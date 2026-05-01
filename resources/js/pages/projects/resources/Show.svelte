@@ -1,7 +1,9 @@
 <script lang="ts">
     import { inertia } from "@inertiajs/svelte";
+    import ApplicationResource from "@/components/projects/resources/applicationResource.svelte";
     import ResourceToolbar from "@/components/projects/resources/resourceToolbar.svelte";
     import YamlResource from "@/components/projects/resources/yamlResource.svelte";
+    import ProjectResourceType from "@/lib/enums/projectResourceType";
     import { project as projectRoute } from "@/routes";
     import type { Project, ProjectResource, Team } from "@/types";
 
@@ -33,7 +35,13 @@
     className="mb-3"
 />
 
-{#if resource.type === "yaml"}
+{#if resource.type === ProjectResourceType.Application}
+    <ApplicationResource
+        {project}
+        {resource}
+        {currentTeam}
+    />
+{:else if resource.type === ProjectResourceType.Yaml}
     <YamlResource
         {project}
         {resource}

@@ -57,7 +57,7 @@
         <Button
             label="Stop"
             icon={CircleStop}
-            kind="secondary"
+            kind="danger"
             spinner={http.processing}
         />
     {/if}

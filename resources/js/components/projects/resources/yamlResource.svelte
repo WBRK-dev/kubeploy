@@ -1,9 +1,9 @@
 <script lang="ts">
     import { useForm } from "@inertiajs/svelte";
     import Button from "@/components/ui/button.svelte";
+    import { yaml as yamlRoute } from "@/routes/project/resource";
     import type { Project, ProjectResource, Team } from "@/types";
     import YamlInput from "./yaml/yamlInput.svelte";
-    import { yaml as yamlRoute } from "@/routes/project/resource";
 
     let {
         project,
