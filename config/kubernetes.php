@@ -31,5 +31,55 @@ users:
 - name: minikube
   user:
     client-certificate: \"/home/www-data/.minikube/profiles/minikube/client.crt\"
-    client-key: \"/home/www-data/.minikube/profiles/minikube/client.key\""
+    client-key: \"/home/www-data/.minikube/profiles/minikube/client.key\"",
+
+    "templates.application" => [
+        "deployment" => [
+            'apiVersion' => 'apps/v1',
+            'kind'       => 'Deployment',
+            'metadata'   => [
+                'name'   => 'hello-world',
+                'labels' => [
+                    'app' => 'hello-world',
+                ],
+            ],
+            'spec' => [
+                'replicas' => 1,
+                'selector' => [
+                    'matchLabels' => [
+                        'app' => 'hello-world',
+                    ],
+                ],
+                'template' => [
+                    'metadata' => [
+                        'labels' => [
+                            'app' => 'hello-world',
+                        ],
+                    ],
+                    'spec' => [
+                        'containers' => [
+                            [
+                                'name'  => 'hello-world',
+                                'image' => 'hello-world:latest',
+                                'imagePullPolicy' => 'IfNotPresent',
+                                // 'ports' => [
+                                //     ['containerPort' => 80],
+                                // ],
+                                // 'resources' => [
+                                //     'requests' => [
+                                //         'cpu'    => '50m',
+                                //         'memory' => '64Mi',
+                                //     ],
+                                //     'limits' => [
+                                //         'cpu'    => '100m',
+                                //         'memory' => '128Mi',
+                                //     ],
+                                // ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ]
 ];

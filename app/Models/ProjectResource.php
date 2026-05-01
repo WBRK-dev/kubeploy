@@ -13,9 +13,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int $id
  * @property int $project_id
  * @property string $name
+ * @property string $selector
  * @property string $type
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \App\Models\ProjectResourceApplication|null $applicationTrait
+ * @property-read \App\Models\Project $project
  * @property-read \App\Models\ProjectResourceYaml|null $yamlTrait
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource newQuery()
@@ -24,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource whereProjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource whereSelector($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource whereUpdatedAt($value)
  * @mixin \Eloquent

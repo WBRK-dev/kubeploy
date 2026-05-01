@@ -3,6 +3,7 @@
     import { CircleStop, FileBraces, RefreshCw, Rocket, Trash } from "@lucide/svelte";
     import Button from "@/components/ui/button.svelte";
     import ProjectResourceType from "@/lib/enums/projectResourceType";
+    import { deploy as applicationDeployRoute } from '@/routes/project/resource/application';
     import { apply as yamlApplyRoute, deleteMethod as yamlDeleteRoute } from '@/routes/project/resource/yaml';
     import type { Project, ProjectResource, Team } from '@/types';
 
@@ -20,6 +21,10 @@
 
     const http = useHttp();
 
+    function ondeploy() {
+        http.post(applicationDeployRoute({ current_team: currentTeam.slug, project: project.id, resource: resource.id }).url);
+    }
+
     function onapply() {
         http.post(yamlApplyRoute({ current_team: currentTeam.slug, project: project.id, resource: resource.id }).url);
     }
@@ -34,6 +39,7 @@
         <Button
             label="Deploy"
             icon={Rocket}
+            onclick={ondeploy}
             spinner={http.processing}
         />
     {/if}
