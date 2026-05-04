@@ -10,6 +10,7 @@ use App\Services\KubernetesClientService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Str;
 
 class ProjectResourceApplicationController extends Controller
 {
@@ -43,5 +44,60 @@ class ProjectResourceApplicationController extends Controller
             ->deploy($resource);
 
         return response()->json(['message' => 'Applied patch']);
+    }
+
+    public function newPort(Request $request, string $currentTeam, Project $project, ProjectResource $resource): RedirectResponse
+    {
+        $body = $request->validate([
+            'hostPort' => 'required|integer|min:1|max:65535',
+            'containerPort' => 'required|integer|min:1|max:65535',
+        ]);
+
+        $body['selector'] = Str::slug(Str::random(8));
+
+        $ports = $resource->applicationTrait->ports;
+        $ports[] = $body;
+        $resource->applicationTrait->ports = $ports;
+
+        $resource->applicationTrait->save();
+
+        return back();
+    }
+
+    public function updatePort(Request $request, string $currentTeam, Project $project, ProjectResource $resource): RedirectResponse
+    {
+        $body = $request->validate([
+            'selector' => 'required|string|max:8',
+            'hostPort' => 'required|integer|min:1|max:65535',
+            'containerPort' => 'required|integer|min:1|max:65535',
+        ]);
+
+        $ports = $resource->applicationTrait->ports;
+        foreach ($ports as &$port) {
+            if ($port['selector'] !== $body['selector']) continue;
+            $port['hostPort'] = $body['hostPort'];
+            $port['containerPort'] = $body['containerPort'];
+            break;
+        }
+        $resource->applicationTrait->ports = $ports;
+
+        $resource->applicationTrait->save();
+
+        return back();
+    }
+
+    public function deletePort(Request $request, string $currentTeam, Project $project, ProjectResource $resource): RedirectResponse
+    {
+        $body = $request->validate([
+            'selector' => 'required|string|max:8',
+        ]);
+
+        $ports = $resource->applicationTrait->ports;
+        $ports = array_filter($ports, fn ($port) => $port['selector'] !== $body['selector']);
+        $resource->applicationTrait->ports = $ports;
+
+        $resource->applicationTrait->save();
+
+        return back();
     }
 }

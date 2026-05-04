@@ -23,6 +23,6 @@
         { label: 'Deployment', value: 'deployment', content: { component: Deployment, props: { resource, projectId: project.id, currentTeamSlug: currentTeam.slug } } },
         { label: 'Environment', value: 'environment', content: { component: Environment } },
         { label: 'Domains', value: 'domains', content: { component: Domains } },
-        { label: 'Ports', value: 'ports', content: { component: Ports } },
+        { label: 'Ports', value: 'ports', content: { component: Ports, props: { resource, projectId: project.id, currentTeamSlug: currentTeam.slug } } },
     ]}
 />

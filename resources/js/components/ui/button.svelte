@@ -36,7 +36,7 @@
 </script>
 
 <Button.Root
-    class="rounded-input {getColorsByKind(kind)} shadow-mini inline-flex
+    class="rounded-input {getColorsByKind(kind)} shadow-mini inline-flex h-input
         h-12 items-center justify-center px-5.25 text-[15px] cursor-pointer
         font-semibold active:scale-[0.98] active:transition-all relative {className}"
     {onclick}

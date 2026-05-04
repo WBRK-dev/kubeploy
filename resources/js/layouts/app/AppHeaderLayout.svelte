@@ -8,7 +8,7 @@
     } = $props();
 </script>
 
-<div class="h-14 border-b border-b-gray-800">
+<div class="h-14 border-b border-b-border">
     {#each breadcrumbs as breadcrumb}
         <p>{breadcrumb.title}</p>
     {/each}

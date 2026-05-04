@@ -9,6 +9,7 @@ use App\Exceptions\InvalidResourceTypeException;
 use App\Models\ProjectResource;
 use Maclof\Kubernetes\Client;
 use Maclof\Kubernetes\Models\Deployment;
+use Maclof\Kubernetes\Models\Service;
 
 class ApplicationResourceService
 {
@@ -39,9 +40,35 @@ class ApplicationResourceService
 
         if ($this->client->deployments()->exists($deployment->getMetadata('name'))) {
             $this->client->deployments()->update($deployment);
-            return;
+        } else {
+            $this->client->deployments()->create($deployment);
         }
 
-        $this->client->deployments()->create($deployment);
+        foreach ($resource->applicationTrait->ports as $port) {
+            $service = $this->createService(
+                $resource,
+                $port['selector'],
+                (int) $port['hostPort'],
+                (int) $port['containerPort'],
+            );
+            if ($this->client->services()->exists($service->getMetadata('name')))
+                $this->client->services()->update($service);
+            else
+                $this->client->services()->create($service);
+        }
+    }
+
+    protected function createService(ProjectResource $resource, string $selector, int $hostPort, int $targetPort): Service
+    {
+        $service = config('kubernetes.templates.application.service');
+
+        $uniqueName = "$resource->selector-$selector";
+        $service['metadata']['name'] = $uniqueName;
+        $service['metadata']['labels']['name'] = $resource->selector;
+        $service['spec']['ports'][0]['port'] = $hostPort;
+        $service['spec']['ports'][0]['targetPort'] = $targetPort;
+        $service['spec']['selector']['app'] = $resource->selector;
+
+        return new Service($service);
     }
 }
