@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Enums\ProjectResourceType;
 use App\Exceptions\InvalidResourceTypeException;
 use App\Models\ProjectResource;
+use Illuminate\Support\Collection;
 use Maclof\Kubernetes\Client;
 use Maclof\Kubernetes\Models\Deployment;
 use Maclof\Kubernetes\Models\Service;
@@ -56,6 +57,8 @@ class ApplicationResourceService
             else
                 $this->client->services()->create($service);
         }
+
+        $this->cleanServices($resource);
     }
 
     protected function createService(ProjectResource $resource, string $selector, int $hostPort, int $targetPort): Service
@@ -64,11 +67,25 @@ class ApplicationResourceService
 
         $uniqueName = "$resource->selector-$selector";
         $service['metadata']['name'] = $uniqueName;
-        $service['metadata']['labels']['name'] = $resource->selector;
+        $service['metadata']['labels']['app'] = $resource->selector;
         $service['spec']['ports'][0]['port'] = $hostPort;
         $service['spec']['ports'][0]['targetPort'] = $targetPort;
         $service['spec']['selector']['app'] = $resource->selector;
 
         return new Service($service);
+    }
+
+    protected function cleanServices(ProjectResource $resource): void
+    {
+        $services = $this->client->services()->setLabelSelector(['app' => $resource->selector])->find();
+
+        /** @var Collection $resourceServices */
+        $resourceServices = Collection::make($resource->applicationTrait->ports)->map(fn ($port) => "$resource->selector-" . $port['selector']);
+        /** @var Service $service */
+        foreach ($services as $service) {
+            if ($resourceServices->contains($service->getMetadata('name'))) continue;
+
+            $this->client->services()->delete($service);
+        }
     }
 }
