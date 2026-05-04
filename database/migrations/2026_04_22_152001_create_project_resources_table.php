@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('project_resources', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("project_id");
-            $table->string("name");
-            $table->string("selector");
-            $table->string("type");
+            $table->unsignedBigInteger('project_id');
+            $table->string('name');
+            $table->string('selector');
+            $table->string('type');
             $table->timestamps();
 
-            $table->foreign("project_id")->references("id")->on("projects")->restrictOnDelete();
+            $table->foreign('project_id')->references('id')->on('projects')->restrictOnDelete();
         });
     }
 

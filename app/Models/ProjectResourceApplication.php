@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,8 +12,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property array<array-key, mixed> $deployment
  * @property array<array-key, mixed> $domains
  * @property array<array-key, mixed> $ports
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResourceApplication newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResourceApplication newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResourceApplication query()
@@ -23,16 +25,17 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResourceApplication wherePorts($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResourceApplication whereProjectResourceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResourceApplication whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 #[Fillable(['project_resource_id', 'deployment', 'domains', 'ports'])]
 class ProjectResourceApplication extends Model
 {
     /**
-        * Get the attributes that should be cast.
-        *
-        * @return array<string, string>
-        */
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [

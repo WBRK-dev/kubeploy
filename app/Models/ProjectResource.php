@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Concerns\CreatesProjectResourceType;
 use App\Concerns\GeneratesUniqueSelector;
 use App\Enums\ProjectResourceType;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -15,11 +16,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $name
  * @property string $selector
  * @property string $type
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \App\Models\ProjectResourceApplication|null $applicationTrait
- * @property-read \App\Models\Project $project
- * @property-read \App\Models\ProjectResourceYaml|null $yamlTrait
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read ProjectResourceApplication|null $applicationTrait
+ * @property-read Project $project
+ * @property-read ProjectResourceYaml|null $yamlTrait
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource query()
@@ -30,6 +32,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource whereSelector($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|ProjectResource whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class ProjectResource extends Model
@@ -37,10 +40,10 @@ class ProjectResource extends Model
     use CreatesProjectResourceType, GeneratesUniqueSelector;
 
     protected $fillable = [
-        "project_id",
-        "name",
-        "selector",
-        "type",
+        'project_id',
+        'name',
+        'selector',
+        'type',
     ];
 
     protected static function boot(): void
@@ -62,12 +65,12 @@ class ProjectResource extends Model
 
     public function loadType(): void
     {
-        switch($this->type) {
-            case (ProjectResourceType::Application->value):
-                $this->load("applicationTrait");
+        switch ($this->type) {
+            case ProjectResourceType::Application->value:
+                $this->load('applicationTrait');
                 break;
-            case (ProjectResourceType::Yaml->value):
-                $this->load("yamlTrait");
+            case ProjectResourceType::Yaml->value:
+                $this->load('yamlTrait');
                 break;
         }
     }

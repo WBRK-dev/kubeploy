@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->unsignedBigInteger("team_id");
+            $table->string('name');
+            $table->unsignedBigInteger('team_id');
             $table->timestamps();
 
-            $table->foreign("team_id")->references("id")->on("teams")->onDelete('restrict');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('restrict');
         });
     }
 

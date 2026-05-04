@@ -17,14 +17,14 @@ class ProjectResourceYamlController extends Controller
     public function __construct(
         protected KubernetesClientService $kubernetesClientService,
         protected KubernetesSmartPatchService $kubernetesSmartPatchService,
-    ) { }
+    ) {}
 
     public function save(Request $request, string $currentTeam, Project $project, ProjectResource $resource): RedirectResponse
     {
         switch ($resource->type) {
-            case (ProjectResourceType::Yaml->value):
+            case ProjectResourceType::Yaml->value:
                 $body = $request->validate([
-                    "yaml" => "required|string",
+                    'yaml' => 'required|string',
                 ]);
                 $resource->yamlTrait->yaml = $body['yaml'];
                 $resource->yamlTrait->save();

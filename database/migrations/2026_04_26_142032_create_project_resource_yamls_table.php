@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('project_resource_yamls', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("project_resource_id");
-            $table->text("yaml");
+            $table->unsignedBigInteger('project_resource_id');
+            $table->text('yaml');
             $table->timestamps();
 
-            $table->foreign("project_resource_id")->references("id")->on("project_resources")->cascadeOnDelete();
+            $table->foreign('project_resource_id')->references('id')->on('project_resources')->cascadeOnDelete();
         });
     }
 

@@ -16,15 +16,15 @@ class ProjectResourceController extends Controller
 {
     public function __construct(
         protected ProjectResourceRepository $projectResourceRepository,
-    ) { }
+    ) {}
 
     public function show(string $currentTeam, Project $project, ProjectResource $resource): Response
     {
         $resource->loadType();
 
-        return inertia("projects/resources/Show", [
-            "project" => $project,
-            "resource" => $resource,
+        return inertia('projects/resources/Show', [
+            'project' => $project,
+            'resource' => $resource,
         ]);
     }
 

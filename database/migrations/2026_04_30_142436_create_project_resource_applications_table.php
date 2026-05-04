@@ -19,7 +19,7 @@ return new class extends Migration
             $table->json('ports');
             $table->timestamps();
 
-            $table->foreign("project_resource_id")->references("id")->on("project_resources")->cascadeOnDelete();
+            $table->foreign('project_resource_id')->references('id')->on('project_resources')->cascadeOnDelete();
         });
     }
 

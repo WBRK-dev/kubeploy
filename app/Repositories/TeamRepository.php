@@ -6,7 +6,8 @@ namespace App\Repositories;
 
 use App\Models\Team;
 
-class TeamRepository {
+class TeamRepository
+{
     public function getBySlug(string $slug): ?Team
     {
         return Team::where('slug', $slug)->first();

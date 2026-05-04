@@ -14,28 +14,28 @@ class ProjectController extends Controller
 {
     public function __construct(
         protected ProjectRepository $projectRepository,
-    ) { }
+    ) {}
 
     public function index(Request $request): Response
     {
         $user = $request->user();
 
-        return inertia("projects/Index", [
-            "projects" => $user->currentTeam->projects,
+        return inertia('projects/Index', [
+            'projects' => $user->currentTeam->projects,
         ]);
     }
 
     public function show(Request $request, string $team, int $project): Response
     {
-        return inertia("projects/Show", [
-            "project" => $this->projectRepository->getById($project, $team),
+        return inertia('projects/Show', [
+            'project' => $this->projectRepository->getById($project, $team),
         ]);
     }
 
     public function store(Request $request): RedirectResponse
     {
         $body = $request->validate([
-            'name' => 'required|string|min:1|max:20'
+            'name' => 'required|string|min:1|max:20',
         ]);
 
         /** @var Team $team */
@@ -55,7 +55,7 @@ class ProjectController extends Controller
     public function save(Request $request, string $currentTeam, Project $project): RedirectResponse
     {
         $body = $request->validate([
-            'name' => 'required|string|min:1|max:20'
+            'name' => 'required|string|min:1|max:20',
         ]);
 
         $project->name = $body['name'];

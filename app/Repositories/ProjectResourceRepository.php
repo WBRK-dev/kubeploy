@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Enums\ProjectResourceType;
 use App\Models\ProjectResource;
 
-class ProjectResourceRepository {
+class ProjectResourceRepository
+{
     public function create(string $name, string $type, int $projectId): ProjectResource
     {
         /** @var ProjectResource $projectResource */
@@ -23,6 +23,7 @@ class ProjectResourceRepository {
     public function update(ProjectResource $resource): ProjectResource
     {
         $resource->save();
+
         return $resource;
     }
 
@@ -30,6 +31,7 @@ class ProjectResourceRepository {
     {
         if (is_int($resource)) {
             ProjectResource::whereId($resource)->delete();
+
             return;
         }
 

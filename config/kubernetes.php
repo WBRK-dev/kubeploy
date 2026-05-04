@@ -1,24 +1,24 @@
 <?php
 
 return [
-    "kubeconfig" => "apiVersion: v1
+    'kubeconfig' => 'apiVersion: v1
 clusters:
 - cluster:
-    certificate-authority: \"/home/www-data/.minikube/ca.crt\"
+    certificate-authority: "/home/www-data/.minikube/ca.crt"
     extensions:
     - extension:
-        last-update: \"Tue, 28 Apr 2026 15:06:22 CEST\"
+        last-update: "Tue, 28 Apr 2026 15:06:22 CEST"
         provider: minikube.sigs.k8s.io
         version: v1.37.0
         name: cluster_info
-    server: \"https://192.168.49.2:8443\"
+    server: "https://192.168.49.2:8443"
   name: minikube
 contexts:
 - context:
     cluster: minikube
     extensions:
     - extension:
-        last-update: \"Tue, 28 Apr 2026 15:06:22 CEST\"
+        last-update: "Tue, 28 Apr 2026 15:06:22 CEST"
         provider: minikube.sigs.k8s.io
         version: v1.37.0
         name: context_info
@@ -30,16 +30,16 @@ kind: Config
 users:
 - name: minikube
   user:
-    client-certificate: \"/home/www-data/.minikube/profiles/minikube/client.crt\"
-    client-key: \"/home/www-data/.minikube/profiles/minikube/client.key\"",
+    client-certificate: "/home/www-data/.minikube/profiles/minikube/client.crt"
+    client-key: "/home/www-data/.minikube/profiles/minikube/client.key"',
 
-    "templates" => [
-        "application" => [
-            "deployment" => [
+    'templates' => [
+        'application' => [
+            'deployment' => [
                 'apiVersion' => 'apps/v1',
-                'kind'       => 'Deployment',
-                'metadata'   => [
-                    'name'   => 'hello-world',
+                'kind' => 'Deployment',
+                'metadata' => [
+                    'name' => 'hello-world',
                     'labels' => [
                         'app' => 'hello-world',
                     ],
@@ -60,7 +60,7 @@ users:
                         'spec' => [
                             'containers' => [
                                 [
-                                    'name'  => 'hello-world',
+                                    'name' => 'hello-world',
                                     'image' => 'hello-world:latest',
                                     'imagePullPolicy' => 'IfNotPresent',
                                     // 'ports' => [
@@ -82,11 +82,11 @@ users:
                     ],
                 ],
             ],
-            "service" => [
+            'service' => [
                 'apiVersion' => 'v1',
-                'kind'       => 'Service',
-                'metadata'   => [
-                    'name'        => 'nginx',
+                'kind' => 'Service',
+                'metadata' => [
+                    'name' => 'nginx',
                     'labels' => [
                         'app' => 'nginx',
                     ],
@@ -98,7 +98,7 @@ users:
                 'spec' => [
                     'ports' => [
                         [
-                            'port'       => 80,
+                            'port' => 80,
                             'targetPort' => 80,
                         ],
                     ],
@@ -107,7 +107,7 @@ users:
                     ],
                     'type' => 'LoadBalancer',
                 ],
-            ]
-        ]
-    ]
+            ],
+        ],
+    ],
 ];

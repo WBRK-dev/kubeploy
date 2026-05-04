@@ -15,6 +15,7 @@ class KubernetesSmartPatchService
     public function setClient(Client $client): self
     {
         $this->client = $client;
+
         return $this;
     }
 
@@ -31,7 +32,7 @@ class KubernetesSmartPatchService
     {
         $kind = explode("\n", explode('kind: ', $yaml)[1])[0];
         switch ($kind) {
-            case (KubernetesKind::Deployment->value):
+            case KubernetesKind::Deployment->value:
                 $this->client->deployments()->apply(new Deployment(
                     [Deployment::MODEL_FROM_YAML => $yaml],
                     Deployment::MODEL_FROM_YAML,
@@ -53,7 +54,7 @@ class KubernetesSmartPatchService
     {
         $kind = explode("\n", explode('kind: ', $yaml)[1])[0];
         switch ($kind) {
-            case (KubernetesKind::Deployment->value):
+            case KubernetesKind::Deployment->value:
                 $this->client->deployments()->delete(new Deployment(
                     [Deployment::MODEL_FROM_YAML => $yaml],
                     Deployment::MODEL_FROM_YAML,

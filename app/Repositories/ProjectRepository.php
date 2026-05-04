@@ -6,15 +6,16 @@ namespace App\Repositories;
 
 use App\Models\Project;
 
-class ProjectRepository {
+class ProjectRepository
+{
     public function __construct(
         protected TeamRepository $teamRepository,
-    ) { }
+    ) {}
 
     public function getById(int $id, string $teamSlug): ?Project
     {
         return $this->teamRepository->getBySlug($teamSlug)
-            ?->projects()->with("resources.yamlTrait")?->findOrFail($id);
+            ?->projects()->with('resources.yamlTrait')?->findOrFail($id);
     }
 
     public function create(string $name, int $teamId): Project
@@ -37,6 +38,7 @@ class ProjectRepository {
     public function update(Project $project): Project
     {
         $project->save();
+
         return $project;
     }
 }

@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $team = Team::find(1);
-        $team->slug = "admins-team";
+        $team->slug = 'admins-team';
         $team->save();
     }
 }

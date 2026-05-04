@@ -17,7 +17,7 @@ class ProjectResourceApplicationController extends Controller
     public function __construct(
         protected KubernetesClientService $kubernetesClientService,
         protected ApplicationResourceService $applicationResourceService,
-    ) { }
+    ) {}
 
     public function save(Request $request, string $currentTeam, Project $project, ProjectResource $resource): RedirectResponse
     {
@@ -28,7 +28,7 @@ class ProjectResourceApplicationController extends Controller
             'ports' => 'nullable|array',
         ]);
 
-        if (!empty($body['deployment'])) {
+        if (! empty($body['deployment'])) {
             $resource->applicationTrait->deployment = $body['deployment'];
         }
         $resource->applicationTrait->save();
@@ -74,7 +74,9 @@ class ProjectResourceApplicationController extends Controller
 
         $ports = $resource->applicationTrait->ports;
         foreach ($ports as &$port) {
-            if ($port['selector'] !== $body['selector']) continue;
+            if ($port['selector'] !== $body['selector']) {
+                continue;
+            }
             $port['hostPort'] = $body['hostPort'];
             $port['containerPort'] = $body['containerPort'];
             break;

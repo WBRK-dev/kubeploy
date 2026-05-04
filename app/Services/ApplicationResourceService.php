@@ -14,18 +14,20 @@ use Maclof\Kubernetes\Models\Service;
 
 class ApplicationResourceService
 {
-    protected Client|null $client = null;
+    protected ?Client $client = null;
 
     public function setClient(Client $client): self
     {
         $this->client = $client;
+
         return $this;
     }
 
     public function deploy(ProjectResource $resource): void
     {
-        if ($resource->type !== ProjectResourceType::Application->value)
+        if ($resource->type !== ProjectResourceType::Application->value) {
             throw new InvalidResourceTypeException(ProjectResourceType::Application->value, $resource->type);
+        }
 
         $deployment = config('kubernetes.templates.application.deployment');
 
@@ -52,10 +54,11 @@ class ApplicationResourceService
                 (int) $port['hostPort'],
                 (int) $port['containerPort'],
             );
-            if ($this->client->services()->exists($service->getMetadata('name')))
+            if ($this->client->services()->exists($service->getMetadata('name'))) {
                 $this->client->services()->update($service);
-            else
+            } else {
                 $this->client->services()->create($service);
+            }
         }
 
         $this->cleanServices($resource);
@@ -80,10 +83,12 @@ class ApplicationResourceService
         $services = $this->client->services()->setLabelSelector(['app' => $resource->selector])->find();
 
         /** @var Collection $resourceServices */
-        $resourceServices = Collection::make($resource->applicationTrait->ports)->map(fn ($port) => "$resource->selector-" . $port['selector']);
+        $resourceServices = Collection::make($resource->applicationTrait->ports)->map(fn ($port) => "$resource->selector-".$port['selector']);
         /** @var Service $service */
         foreach ($services as $service) {
-            if ($resourceServices->contains($service->getMetadata('name'))) continue;
+            if ($resourceServices->contains($service->getMetadata('name'))) {
+                continue;
+            }
 
             $this->client->services()->delete($service);
         }
