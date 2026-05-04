@@ -65,5 +65,8 @@ jobs:
           # Start minikube
           minikube start --driver=docker
 
+      - name: Migrate
+        run: php artisan migrate
+
       - name: Tests
         run: ./vendor/bin/pest
