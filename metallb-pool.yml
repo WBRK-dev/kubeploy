@@ -7,17 +7,11 @@ spec:
   addresses:
   - 192.168.49.2/32
 ---
-apiVersion: v1
-kind: Service
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
 metadata:
-  name: test-uptime-kuma-d5q5ak3g
-  annotations:
-    metallb.io/address-pool: node1-pool
-    metallb.io/allow-shared-ip: "node1"
+  name: node1-advertisement
+  namespace: metallb-system
 spec:
-  ports:
-  - port: 3001
-    targetPort: 3001
-  selector:
-    app: test-uptime-kuma-d5q5ak3g
-  type: LoadBalancer
+  ipAddressPools:
+    - node1-pool

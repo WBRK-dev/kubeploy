@@ -3,18 +3,18 @@
     import { AlertDialog as BitsAlertDialog } from "bits-ui";
     import AlertDialog from "@/components/ui/alertDialog.svelte";
     import Button from "@/components/ui/button.svelte";
-    import { ports as portsRoute } from "@/routes/project/resource/application";
-    import type { ProjectResourceApplicationPort } from "@/types";
+    import { domains as domainsRoute } from "@/routes/project/resource/application";
+    import type { ProjectResourceApplicationDomain } from "@/types";
 
     let {
-        port,
+        domain,
         resourceId,
         projectId,
         currentTeamSlug,
         open,
         onclose,
     }: {
-        port: ProjectResourceApplicationPort|null,
+        domain: ProjectResourceApplicationDomain|null,
         resourceId: number,
         projectId: number,
         currentTeamSlug: string,
@@ -27,25 +27,25 @@
     });
 
     function submit() {
-        if (port === null) {
+        if (domain === null) {
             return;
         }
 
-        form.selector = port.selector!;
+        form.selector = domain.selector!;
 
-        form.delete(portsRoute({ current_team: currentTeamSlug, project: projectId, resource: resourceId }).url, {
+        form.delete(domainsRoute({ current_team: currentTeamSlug, project: projectId, resource: resourceId }).url, {
             onSuccess: onclose,
         });
     }
 </script>
 
 <AlertDialog
-    title="Delete Port"
+    title="Delete Domain"
     {open}
     {onclose}
 >
     <BitsAlertDialog.Description class="text-foreground-alt text-sm">
-        This action cannot be undone. This will delete port "{port?.hostPort}:{port?.containerPort}".
+        This action cannot be undone. This will delete domain "{domain?.domain}".
         Do you wish to continue?
     </BitsAlertDialog.Description>
     <div class="flex w-full items-center justify-center gap-2">

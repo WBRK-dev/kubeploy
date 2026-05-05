@@ -3,8 +3,8 @@
     import Button from "@/components/ui/button.svelte";
     import Input from "@/components/ui/input.svelte";
     import type { ProjectResource } from "@/types";
-    import PortsTable from "./ports/portsTable.svelte";
     import NewPortDialog from "./ports/newPortDialog.svelte";
+    import PortsTable from "./ports/portsTable.svelte";
 
     let {
         resource,

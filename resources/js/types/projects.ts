@@ -23,7 +23,7 @@ export type ProjectResource = {
 export type ProjectResourceApplication = {
     id: number;
     deployment: ProjectResourceApplicationDeployment;
-    domains: [];
+    domains: ProjectResourceApplicationDomain[];
     ports: ProjectResourceApplicationPort[];
     created_at: string;
     updated_at: string;
@@ -32,6 +32,12 @@ export type ProjectResourceApplication = {
 export type ProjectResourceApplicationDeployment = (
     | { type: ApplicationType.Docker, image: string, imagePullPolicy: ImagePullPolicy }
 );
+
+export type ProjectResourceApplicationDomain = {
+    selector?: string;
+    domain: string;
+    containerPort: string;
+};
 
 export type ProjectResourceApplicationPort = {
     selector?: string;

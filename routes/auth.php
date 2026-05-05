@@ -21,6 +21,9 @@ Route::delete('projects/{project}/{resource}', [ProjectResourceController::class
 
 Route::put('projects/{project}/{resource}/application', [ProjectResourceApplicationController::class, 'save'])->name('project.resource.application');
 Route::post('projects/{project}/{resource}/application/deploy', [ProjectResourceApplicationController::class, 'deploy'])->name('project.resource.application.deploy');
+Route::post('projects/{project}/{resource}/application/domains', [ProjectResourceApplicationController::class, 'newDomain'])->name('project.resource.application.domains');
+Route::put('projects/{project}/{resource}/application/domains', [ProjectResourceApplicationController::class, 'updateDomain']);
+Route::delete('projects/{project}/{resource}/application/domains', [ProjectResourceApplicationController::class, 'deleteDomain']);
 Route::post('projects/{project}/{resource}/application/ports', [ProjectResourceApplicationController::class, 'newPort'])->name('project.resource.application.ports');
 Route::put('projects/{project}/{resource}/application/ports', [ProjectResourceApplicationController::class, 'updatePort']);
 Route::delete('projects/{project}/{resource}/application/ports', [ProjectResourceApplicationController::class, 'deletePort']);

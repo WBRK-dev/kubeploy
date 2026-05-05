@@ -102,4 +102,61 @@ class ProjectResourceApplicationController extends Controller
 
         return back();
     }
+
+    public function newDomain(Request $request, string $currentTeam, Project $project, ProjectResource $resource): RedirectResponse
+    {
+        $body = $request->validate([
+            'domain' => 'required|string|min:1',
+            'containerPort' => 'required|integer|min:1|max:65535',
+        ]);
+
+        $body['selector'] = Str::slug(Str::random(8));
+
+        $domains = $resource->applicationTrait->domains;
+        $domains[] = $body;
+        $resource->applicationTrait->domains = $domains;
+
+        $resource->applicationTrait->save();
+
+        return back();
+    }
+
+    public function updateDomain(Request $request, string $currentTeam, Project $project, ProjectResource $resource): RedirectResponse
+    {
+        $body = $request->validate([
+            'selector' => 'required|string|max:8',
+            'domain' => 'required|string|min:1',
+            'containerPort' => 'required|integer|min:1|max:65535',
+        ]);
+
+        $domains = $resource->applicationTrait->domains;
+        foreach ($domains as &$domain) {
+            if ($domain['selector'] !== $body['selector']) {
+                continue;
+            }
+            $domain['domain'] = $body['domain'];
+            $domain['containerPort'] = $body['containerPort'];
+            break;
+        }
+        $resource->applicationTrait->domains = $domains;
+
+        $resource->applicationTrait->save();
+
+        return back();
+    }
+
+    public function deleteDomain(Request $request, string $currentTeam, Project $project, ProjectResource $resource): RedirectResponse
+    {
+        $body = $request->validate([
+            'selector' => 'required|string|max:8',
+        ]);
+
+        $domains = $resource->applicationTrait->domains;
+        $domains = array_filter($domains, fn ($domain) => $domain['selector'] !== $body['selector']);
+        $resource->applicationTrait->domains = $domains;
+
+        $resource->applicationTrait->save();
+
+        return back();
+    }
 }
